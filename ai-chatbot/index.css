@@ -1,0 +1,518 @@
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    background: url('https://cdna.artstation.com/p/assets/images/images/049/211/236/original/dirk-martens-classroom-gif-lowres.gif?1651951067') no-repeat center center/cover;
+    color: #fff;
+    font-family: 'Source Code Pro', monospace !important;
+    height: 100vh;
+    display: flex;
+    cursor: url('assassin-cursor.png') 16 16, auto; /* 16 16 sets the hotspot */
+}
+
+.chat-body-inner.left,
+.chat-body-inner.left p,
+.chat-body-inner.left ul,
+.chat-body-inner.left ol,
+.chat-body-inner.left li,
+.chat-body-inner.left span,
+.chat-body-inner.left strong,
+.chat-body-inner.left em {
+    color: white !important;
+}
+
+
+
+.page-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.ai-persona {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.ai-persona img {
+    max-width: 100%;
+    animation: breathe 3s ease-in-out infinite;
+    min-height: 1000px;
+    transition: filter 1.5s ease-in-out; /* Smooth transition */
+  }
+ 
+  #korosensei {
+    transition: transform 0.2s ease-in-out;
+}
+.bright-circle {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,0,1) 0%, rgba(255,165,0,0) 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+    animation: pulse 1.5s ease-in-out infinite;
+    z-index: 1000;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 1;
+    }
+}
+
+
+@keyframes breathe {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02); /* Adjust scale as desired */
+    }
+  }
+ 
+
+.chat-interface {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    width: 450px; /* Smaller fixed width */
+    height: 700px; /* Smaller fixed height */
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    border: 1px solid #333;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    border-bottom: 1px solid #333;
+    background: #111;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+}
+
+.online{
+    color: green;
+}
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.icon {
+    cursor: pointer;
+    color: white;
+    margin-right: 15px;
+    /* Optional: a little transition for hover state */
+    transition: transform 0.3s ease;
+  }
+ 
+  /* Hover effect (already there) */
+  .icon:hover {
+    transform: rotateX(45deg);
+  }
+ 
+  /* When .fly-away class is added, it triggers the animation */
+  .fly-away {
+    animation: planeFly 1s forwards ease-in-out;
+  }
+ 
+  /* The "flying away" animation */
+  @keyframes planeFly {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(300px, -100px) rotate(90deg);
+      opacity: 0;
+    }
+  }
+ 
+
+.message-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background: #000;
+}
+
+.chat-content {
+    display: flex;
+    margin-bottom: 0.8rem;
+    width: 100%;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+}
+
+.online-status {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #8e8e8e;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+.user-message {
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    word-wrap: break-word; /* Forces words to break if needed */
+    white-space: normal; /* Prevents weird spacing issues */
+    line-height: 1.5; /* Improves readability */
+}
+
+.ai-message {
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+}
+
+.chat-body-inner {
+    max-width: calc(85% - 46px); /* Adjust for icon width and margin */
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    margin: 0.4rem 0;
+    font-size: 14px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.chat-body-inner.left {
+    background: #474343;
+    text-align: left;
+    border-radius: 2px 8px 8px 8px;
+    display: inline;
+}
+
+.chat-body-inner.right {
+    background: #221e1e;
+    text-align: right;
+    border-radius: 8px 8px 8px 8px;
+}
+
+
+.chat-body-inner p {
+    margin: 0;
+    text-align: left;
+    color: #fff;
+}
+
+.input-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.8rem;
+    background: #1a1a1a;
+    border-top: 1px solid #333;
+}
+
+.plus-btn {
+    background: none;
+    border: none;
+    color: #8a8787;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    position: relative;
+}
+
+.plus-btn::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 70%; /* Position above the button */
+    left: 70%;
+    transform: translateX(-40%);
+    color: white;
+    padding: 5px 8px;
+    font-size: 15px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.plus-btn:hover::before {
+    opacity: 1;
+}
+
+.chat-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 8px;
+}
+
+.user-message .chat-body-inner {
+    order: 1; /* Makes sure message comes first */
+    background: #221b1b;
+    text-align: right;
+    border-radius: 10px 2px 10px 10px;
+}
+
+.user-message .chat-icon {
+    order: 2; /* Ensures the icon is at the right */
+    margin-left: 8px; /* Add spacing between message and icon */
+}
+
+#chat-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 0.5rem;
+    resize: none;
+    height: 36px;
+    outline: none;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+#chat-input::placeholder {
+    color: #666;
+    font-size: 13px;
+}
+
+.typing-indicator {
+    color: #706f6f;
+    font-style: italic;
+    padding: 0.4rem 0.8rem;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+  }
+ 
+  .typing-indicator::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: #666;
+    border-radius: 50%;
+    margin-left: 5px;
+    animation: typingDots 1s infinite;
+  }
+ 
+  @keyframes typingDots {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+/* Image message styling */
+.message-image {
+    max-width: 200px; /* Smaller images */
+    border-radius: 8px;
+    margin: 0.4rem 0;
+}
+
+/* Action button (e.g., "Take a selfie") */
+.action-button {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background: transparent;
+    border: 1px solid #4a9eff;
+    color: #4a9eff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0.4rem 0;
+    font-size: 13px;
+}
+
+/* Message timestamp */
+.message-timestamp {
+    font-size: 11px;
+    color: #918e8e;
+    margin-top: 4px;
+}
+
+/* Scrollbar styling */
+.message-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.message-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.message-container::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+/* Optional: Add hover effect to make chat interface slightly more prominent */
+.chat-interface:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  .chat-content {
+    animation: fadeIn 0.3s ease-out;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+    width: 100%;
+    order: 1;
+  }
+
+
+#paper-plane {
+    transition: transform 0.2s ease;
+  }
+ 
+#paper-plane:hover {
+    transform: translateX(2px);
+  }
+
+  .char-count {
+    font-size: 11px;
+    color: #666;
+    text-align: right;
+    padding-right: 10px;
+  }
+
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+ 
+  .loading-indicator {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #666;
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+    margin-left: 10px;
+  }
+
+#ai-persona-chatbox{
+    animation: fadeIn 1s ease-in-out;
+}
+/* Doorway Container */
+#doorway-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black; /* Optional: adds a background */
+}
+
+#doorway {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the full space */
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
+
+}
+
+#hover-text {
+    color: white;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+#doorway:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0px 0px 10px yellow);
+}
+
+#doorway:hover + #hover-text {
+    opacity: 1;
+}
+
+/* Chatbox & AI Persona Hidden Initially */
+.hidden {
+    display: none;
+}
+
+.chat-bubble {
+    background-color: #ffcc00;
+    color: black;
+    padding: 8px 12px; /* Reduce padding */
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px; /* Reduce font size */
+    text-align: center;
+    max-width: 100%; /* Prevent overflow */
+    transition: 0.3s ease-in-out;
+    margin-bottom: 5px;
+}
+
+.chat-bubble:hover {
+    background-color: #ffe990;
+}

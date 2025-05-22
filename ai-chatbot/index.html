@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KORO-SENSEI CHATBOT</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "@google/generative-ai":"https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+</head>
+<body>
+   <!-- Doorway Section -->
+   <div id="doorway-container">
+    <img id="doorway" src="classroom.jpg" alt="Enter the Chat">
+</div>
+
+    <div class="page-container hidden" id="ai-persona-chatbox">
+        <!-- Left side for AI persona -->
+        <div class="ai-persona" id="korosensei">
+            <img src="koro-sensei.png" alt="">
+        </div>
+
+        <!-- Right side chat -->
+        <div class="chat-interface" id="chatbox">
+            <!-- Header -->
+            <div class="chat-header">
+                <div class="user-info">
+                    <img src="sensei-icon.png" alt="Koro Sensei" class="avatar">
+                    <div class="user-details">
+                        <span class="username">Koro Sensei</span>
+                        <span class="online-status">
+                            <span class="status-dot"></span>
+                            Online
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages area -->
+            <div class="message-container"></div>
+
+            <!-- Input area -->
+            <div class="input-area">
+                <button class="plus-btn" data-tooltip="New chat"><i class="fas fa-plus"></i>
+                </button>
+                <textarea id="chat-input" placeholder="Koro-sensei, how are you feeling today?"></textarea>
+                <div class="icon" id="paper-plane"><i class="fa-regular fa-paper-plane"></i></div>
+              </div>              
+        </div>
+    </div>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="module" src="mainmodule.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+<script>
+    const paperPlane = document.getElementById('paper-plane');
+
+paperPlane.addEventListener('click', () => {
+  // Add the fly-away class
+  paperPlane.classList.add('fly-away');
+ 
+  // Optional: Remove the class after animation so it returns
+  setTimeout(() => {
+    paperPlane.classList.remove('fly-away');
+  }, 1000); // Match the animation duration
+});
+
+document.getElementById("doorway").addEventListener("click", function() {
+    // Hide the door
+    document.getElementById("doorway-container").style.display = "none";
+   
+    // Show AI persona and chatbox
+    document.querySelector(".page-container").classList.remove("hidden");
+});
+
+</script>
+</html>
